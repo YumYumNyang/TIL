@@ -83,7 +83,7 @@ _Create React App won't need to configure a fallback URL.(automatically done.)_
 
   -> route handler can get access to the store.
 
-      ```javascript
+   ```javascript
       import { Provider } from 'react-redux'
 
       const Root = ({ store }) => (
@@ -93,7 +93,7 @@ _Create React App won't need to configure a fallback URL.(automatically done.)_
           </Router>
         </Provider>
       )
-      ```
+   ```
 
 - `<App />` component will be rendered when the URL matches '/.'
 
