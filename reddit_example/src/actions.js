@@ -17,7 +17,7 @@ export function invalidateSubreddit(subreddit) {
   return {
     type: INVALIDATE_SUBREDDIT,
     subreddit,
-  };
+  }
 }
 // press 'refresh' button to update subreddit
 
@@ -29,7 +29,7 @@ function requestsPosts(subreddit) {
   return {
     type: REQUEST_POSTS,
     subreddit,
-  };
+  }
 }
 
 // To fetch the posts for subreddit. it's important to separate invalidateSubreddit and this.
@@ -42,7 +42,7 @@ function receivePosts(subreddit, json) {
     subreddit,
     posts: json.data.children.map(child => child.data),
     recevedAt: Date.now(), // receivedat will be some weired number it's iso8601 number.
-  };
+  }
 }
 
 // export function fetchPosts(subreddit){
@@ -99,7 +99,7 @@ export function fetchPostsIfNeeded(subreddit) {
       return Promise.resolve();
       // let the calling code know there's nothing to wait for.
     }
-  };
+  }
 } //-> more shophisticated async control flow gradually, while the consuming code can stay pretty mush the same.
 
 // async action creators are especially convenient for server rendering. Store will be hydrated with the state
