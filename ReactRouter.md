@@ -31,7 +31,7 @@
     a backup of the current data to fallback to a time stamp (In computer.)
     "PLAN B"
 
-- <a href ="https://stackoverflow.com/questions/25377545/what-is-a-fallback/25377721">funny explanation for fallback </a>
+- <a href ="https://stackoverflow.com/questions/25377545/what-is-a-fallback/25377721">funny explaination for fallback </a>
 
 <br>
 <br>
