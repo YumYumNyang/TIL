@@ -5,6 +5,7 @@ import rootReducer from './reducers'
 
 const loggerMiddleware = createLogger()
 
+
 export default function configureSitre(preloadedState){
     return createStore(
         rootReducer,
