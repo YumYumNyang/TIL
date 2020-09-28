@@ -59,4 +59,4 @@ The same rules of thumb for deciding what should go in the Redux store apply for
 
 - take some time to analyze the overall performance needs of your own application.
 
-- Other kinds of UI sate follow these rules of thumb as well. (ex-tracking an isDropdownOpen). In most situations, the rest of the app doesn't care about this, it should stay in component state. However, depending your application, it may make sense to use Redux to manage dialogs and other popups, tabs, expanding panels, ans so on.
+- Other kinds of UI sate follow these rules of thumb as well. (ex-tracking an isDropdownOpen). In most situations, the rest of the app doesn't care about this, it should stay in component state. However, depending your application, it may make sense to use Redux to manage dialogs and other popups, tabs, expanding panels, and so on.
