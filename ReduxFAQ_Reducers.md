@@ -8,7 +8,7 @@
 - the suggested structure for a redux store - split the state object into multiple "slices" or "domains" by key. - provide a separate reducer function to manage each individual data slice.
   => similar to the standard Flux pattern, Redux provides combineReducers utility funtion to make this pattern easier.
 
-- _combineReducers_ is not required. it is simply a utiliy function for the common use case of having single reducer function per state slice with plain JS objects for the data.
+- _combineReducers_ is not required. it is simply a utility function for the common use case of having single reducer function per state slice with plain JS objects for the data.
 
 - many users later want to try to share data between two reducers, but CombineReducers X allow them to do so.
 - Several approches that can be used:
