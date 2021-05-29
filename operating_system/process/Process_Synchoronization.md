@@ -205,4 +205,60 @@ cpu의 레지스터에 counter 를 불러온 뒤, 값을 감소시키고 그 값
 
     ![alt text](../img/7.png "7.png")
   - Mutual exclusion 만족 : flag[0] = flag[1] = true는 p0과 p1이 cs에 들어가고자 하는 의도가 있음을 의미하고, turn이 i일때 pi가 cs에 진입함.
-  -   
+  - Progress 와 Bounded waiting requirements 만족 
+    - while(flag[j]==true&& turn == j) 로 인해 Pi가 cs영역에 진입할 수 없음. 만약 pj가 진입준비가 되어있지 않거나 (flag[j]<-false) 혹은 j가 들어갈 순서가 아니면(turn!=j) i가 while문을 벗어나서 cs진입이 가능해짐.
+    - Pj는 flag[j]<-true로 하고 cs를 진입하고자 기다린다. 이때 turn ==i이라면 Pi의 cs영역으로 진입하고 turn ==j 이면 Pj의 cs 영역에 진입한다. Pj는 cs영역 실행 후에 flag[j]<-false로 지정하여 cs에서 나왔다는 것을 알린다. 이러면 상대방 pi가 바로 cs에 진입을 가능하게 만들어준다. 
+    - Pj는 cs에 들어가고 싶어 flag[j]<-true로 지정하지만 turn 값을 오히려 i로 지정해 다른 프로세스에게 양보한다.
+    - Pi는 while문에서 기다리는 동안 turn값 j를 바꾸지 않으므로 상대방 Pj는 cs진입이 보장된다. Pj가 cs에 들어갔다 나오면 다시 들어가지 않는다. 그러므로 Pi도 한번은 cs 진입이 보장된다고 할 수 있다. 
+
+## Synchronization Hardware
+- 많은 시스템은 critical section code를 실행하기 위한 hardware support를 제공한다.
+- 모든 솔루션은 Locking에 기반. : lock을 통해 임계 지역을 보호.
+- Uniprocessors 는 interrupt를 disable할 수 있음.
+  - 현재 수행하는 코드는 preemption없이 실행할 것임.
+  - 일반적으로 멀티프로세서 시스템에서는 너무나 비효율적인 방법.
+    - 멀티프로세서에서는 mutual exclusion도 보장이 되지 않고, interrupt를 disable시키는 것은 솔루션이 될 수 없다.
+- Modern machines은 특별한 atomic hardware instruction을 제공한다. atomic == non-interruptible
+  - example
+    - test memory word and set value
+    - swap contents of two memory words
+
+![alt text](../img/8.png "8.png")
+
+
+## test_and_set Instruction 
+```
+boolean test_and_set(boolean *target)
+{
+  boolean rv = *target;
+  *target  = TRUE;
+  return rv;
+}
+```
+- test : target 주소 메모리 값을 확인함.
+- set : target 주소에 해당하는 메모리 값을 true로 setting.
+- atomic하게 동작.
+- 넘겨받은 매개변수의 원래 값을 리턴.
+- 넘겨받은 매개변수를 새로운 값으로 세팅 (TRUE 로)
+
+
+- 공유된 불리언 변수 lock은 false로 초기화 됨.
+```
+do{
+  while(test_and_set(&lock)){ // lock은 프로세스간 공유된 값, 초기에 false. 이때 while을 벗어나 cs 진입가능함. 나중에 lock을 true로 세팅하여 while에 남도록함. 
+    /* 아무일도 없음 */
+  }
+  /*critical section*/
+  lock = false; // cs를 떠날 때, lock을 false로 세팅해 다른 프로세스가 cs에 진입할 수 있도록 해줌.
+  /*remainder section*/
+}while(true);
+```
+
+## compare_and_swap Instruction
+``` 
+int compare_and_swap(int * value, int expected, int new_value){
+  int temp = *value;
+  if(*value == expected)
+    *value = new_value;
+  return temp;
+}
