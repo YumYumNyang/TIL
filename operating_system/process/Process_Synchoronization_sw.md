@@ -32,7 +32,7 @@
     /* produce an item in next produced */ 
     while(counter == BUFFER_SIZE); // 사용할 수 있는 버퍼가 없으면 아무 일도 하지 않음.
       /* 아무일도 하지 않음 */
-    buffer[in] = next_produced; // next 항목을 생상한 후에 버퍼에 씀.
+    buffer[in] = next_produced; // next 항목을 생성한 후에 버퍼에 씀.
     in = (in + 1) % BUFFER_SIZE; 
     counter++;
   }
@@ -73,7 +73,7 @@ counter는 메모리 상의 변수로, cpu내부에 있는 register에 counter �
 - counter--
 ```
 register2 = counter
-register2 = register2 + 1
+register2 = register2 - 1
 couter = register2
 ```
 cpu의 레지스터에 counter 를 불러온 뒤, 값을 감소시키고 그 값을 다시 counter 에 넣어줌.
